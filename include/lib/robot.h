@@ -11,6 +11,9 @@ using namespace pros;
 
 int sgn(int x);
 
+#define DEGREES E_MOTOR_ENCODER_DEGREES
+#define GREEN E_MOTOR_GEARSET_18
+#define RED E_MOTOR_GEARSET_36
 #define DRIVE_RIGHT_1 1 
 #define DRIVE_LEFT_1 3
 #define DRIVE_RIGHT_2 2
@@ -26,6 +29,7 @@ int sgn(int x);
 #define ENC_LEFT 'c'
 #define PI 3.1415
 
+extern Controller joystick;
 extern Motor rm1; 
 extern Motor rm2; 
 extern Motor lm1; 
