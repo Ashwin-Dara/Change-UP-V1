@@ -8,13 +8,6 @@ namespace drive{
     float powerSpline(float axisInput);
     void operatorControl();
     
-    struct autoInitializer{
-        int16_t setPointR, setPointL; 
-        int16_t modAdjust; 
-        int16_t thetaAdjust; 
-        int16_t phaseAdjust; 
-    } chassisConstruct;
-
     class autoChassis{
 
     };

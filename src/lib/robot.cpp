@@ -3,7 +3,7 @@
 using namespace pros; 
 
 int sgn(int x){
-    int y = (x<0) ? 1 : -1; 
+    int y = (x>0) ? 1 : -1; 
     return y; 
 }
 
