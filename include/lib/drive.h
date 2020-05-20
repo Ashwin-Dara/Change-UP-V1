@@ -9,7 +9,6 @@ namespace drive{
     void operatorControl();
     
     class autoChassis{
-
     };
 }
 
