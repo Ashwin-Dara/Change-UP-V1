@@ -2,13 +2,20 @@
 #include "../include/lib/drive.h"
 namespace drive{
 
+float powerSpline(float axisInput){
+    float denom = (K + A*(std::exp(C*axisInput)));
+    float y = (1/denom);
+    return float(y);
+}
+
 void operatorControl(){
-    int rightPower, leftPower; 
+    int rightAxis = joystick.get_analog(ANALOG_RIGHT_Y);
+    int leftAxis = joystick.get_analog(ANALOG_LEFT_Y);
+    int rightPower, leftPower;
     if(abs(joystick.get_analog(ANALOG_RIGHT_Y)) > 2)
-        rightPower = joystick.get_analog(ANALOG_RIGHT_Y);
-    else rightPower = 0; 
+        rightPower = (powerSpline(rightAxis) - powerSpline(0));
     if(abs(joystick.get_analog(ANALOG_LEFT_Y)) > 2)
-        leftPower = joystick.get_analog(ANALOG_LEFT_Y);
+        leftPower = (powerSpline(leftAxis) - powerSpline(0));
     else leftPower = 0; 
     rm1.move_voltage(rightPower * V_CONST);
     rm2.move_voltage(rightPower * V_CONST);
