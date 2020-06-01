@@ -9,7 +9,7 @@
 
 namespace drive{
     float powerSpline(float axisInput);
-    void operatorControl();
+    void operatorControl(bool usingSpine);
     
     class autoChassis{
     };
