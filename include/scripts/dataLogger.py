@@ -23,8 +23,7 @@ class Logger:
 
 powerLog = Logger("include\data\powerStreamData.txt", "power(rpm)", "r")
 
-def main():
-    
+def main():  
     powerLog.visualPlot([0, 10, 0, 200], 'p')
  #   logger = open("include\data\powerStreamData.txt", "r")
  #   #if logger.mode = "r":
