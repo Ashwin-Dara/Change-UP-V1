@@ -1,4 +1,5 @@
 #include "main.h"
+#include "../include/lib/PID.h"
 #include "../include/lib/robot.h"
 #define V_CONST 94.4
 #define K 0.01
@@ -11,7 +12,7 @@ namespace drive{
     float powerSpline(float axisInput);
     void operatorControl(bool usingSpine);
     
-    class autoChassis{
+    class autoChassis : public PID {
     };
 }
 
