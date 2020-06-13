@@ -11,6 +11,11 @@ using namespace pros;
 
 int sgn(int x);
 
+void driveVoltageAssign(int rightPower, int leftPower);
+
+//void driveRightSideVoltage(int milliVolts, bool nonRev = 1);
+//void driveLeftSideVoltage(int milliVolts, bool reversed = 1);
+
 #define DEGREES E_MOTOR_ENCODER_DEGREES
 #define GREEN E_MOTOR_GEARSET_18
 #define RED E_MOTOR_GEARSET_36
