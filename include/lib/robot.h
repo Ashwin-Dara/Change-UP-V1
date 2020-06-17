@@ -32,7 +32,6 @@ void driveVoltageAssign(int rightPower, int leftPower);
 
 #define ENC_RIGHT 'a'
 #define ENC_LEFT 'c'
-#define PI 3.1415
 
 extern Controller joystick;
 extern Motor rm1; 
