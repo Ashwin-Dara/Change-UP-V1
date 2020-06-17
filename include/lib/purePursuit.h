@@ -15,10 +15,13 @@ class vec{
 };
 
 class purePursuit : public vec { //inherit odo as well 
+private: 
+    string mapK; 
 public: 
     extern vector< vector<int> > path(N, vector<int> (M));
     virtual void generatePath(const int genPath[3][2]);
     void generateTarget(int v[2], int z[2]);
-}
+    void seek(const &string key);
+};
 
 #endif
