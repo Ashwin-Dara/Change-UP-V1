@@ -133,13 +133,14 @@ leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);
 
 if (abs(rightYaxis > 2)){
 	
-right_motor.move_velocity(rightYaxis);
+right_motor.move(rightYaxis);
 
 }
 
 if (abs(leftYaxis > 2)){
 	
-left_motor.move_velocity(leftYaxis);
+left_motor.move(leftYaxis);
+
 
 }
 
