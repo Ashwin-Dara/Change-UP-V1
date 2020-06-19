@@ -16,6 +16,7 @@ void on_center_button() {
 	}
 }
 
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -73,20 +74,83 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+
+
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
+	
+///motor, joystick, and variables
+int press_amount = 0;
+float rightYaxis, leftYaxis;
+pros::Motor motor1 (1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+pros::Motor right_motor (2, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+pros::Motor left_motor (3, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
+pros::Controller joystick (CONTROLLER_MASTER);
 
-	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
 
-		left_mtr = left;
-		right_mtr = right;
-		pros::delay(20);
+
+/// this is assignment 1, the 3-button toggle
+while (true){
+
+if (joystick.get_digital(DIGITAL_A)){
+	press_amount = press_amount +1;
+
+	if (press_amount >= 4){
+		press_amount = 1;
 	}
+	
+	if (press_amount == 1){
+
+		motor1.move_velocity(70);
+
+	}
+
+	else if (press_amount == 2){
+		
+		motor1.move_velocity(-70);
+
+	}
+
+	else if (press_amount == 3){
+		
+		motor1.move_velocity(0);
+
+	}
+
+	else pros::delay (20);
+
+
+
+}
+/// assignment 2 is here
+
+
+rightYaxis = joystick.get_analog(ANALOG_RIGHT_Y);
+leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);
+
+
+
+if (abs(rightYaxis > 2)){
+	
+right_motor.move_velocity(rightYaxis);
+
+}
+
+if (abs(leftYaxis > 2)){
+	
+left_motor.move_velocity(leftYaxis);
+
+}
+
+
+
+
+
+
+
+
+}
+
+	
 }
