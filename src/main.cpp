@@ -1,4 +1,5 @@
 #include "main.h"
+#include <iostream>
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -75,16 +76,23 @@ void autonomous() {}
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
+ 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+ 
  */
 
 
-void opcontrol() {
-
+void opcontrol() { 
+	int rightYAxis, leftYAxis; 
+	pros::Controller joystick(CONTROLLER_MASTER); //controller with the name "joystick"
+	pros::Motor motor1 (1, MOTOR_GEARSET_6, false, MOTOR_ENCODER_DEGREES); //red motor 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-						 
-		pros::delay(20);
+		rightYAxis = joystick.get_analog(ANALOG_RIGHT_Y); //rightYAxis = how far the stick is pushed
+		leftYAxis = joystick.get_analog(ANALOG_LEFT_Y);
+		motor1.move(rightYAxis); //powr of the motor depends on how far the stick is pushed
+		pros::delay(20); //sleeps in milliseconds
 	}
 }
+
+
