@@ -1,13 +1,11 @@
 #include "main.h"
-#include <iostream>
 
 /**
- * Runs initialization code. This occurs as soon as the program is started.
+ * A callback function for LLEMU's center button.
  *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
+ * When this callback is fired, it will toggle line 2 of the LCD text between
+ * "I was pressed!" and nothing.
  */
-
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
@@ -18,6 +16,12 @@ void on_center_button() {
 	}
 }
 
+/**
+ * Runs initialization code. This occurs as soon as the program is started.
+ *
+ * All other competition modes are blocked by initialize; it is recommended
+ * to keep execution time for this mode under a few seconds.
+ */
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
@@ -30,7 +34,6 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-
 void disabled() {}
 
 /**
@@ -55,7 +58,6 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-
 void autonomous() {}
 
 /**
@@ -71,28 +73,20 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-/**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+void opcontrol() {
+	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	pros::Motor left_mtr(1);
+	pros::Motor right_mtr(2);
+
+	while (true) {
+		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
- 
- */
+		int left = master.get_analog(ANALOG_LEFT_Y);
+		int right = master.get_analog(ANALOG_RIGHT_Y);
 
-
-void opcontrol() { 
-	int rightYAxis, leftYAxis; 
-	pros::Controller joystick(CONTROLLER_MASTER); //controller with the name "joystick"
-	pros::Motor motor1 (1, MOTOR_GEARSET_6, false, MOTOR_ENCODER_DEGREES); //red motor 
-	while (true) {
-		rightYAxis = joystick.get_analog(ANALOG_RIGHT_Y); //rightYAxis = how far the stick is pushed
-		leftYAxis = joystick.get_analog(ANALOG_LEFT_Y);
-		motor1.move(rightYAxis); //powr of the motor depends on how far the stick is pushed
-		pros::delay(20); //sleeps in milliseconds
+		left_mtr = left;
+		right_mtr = right;
+		pros::delay(20);
 	}
 }
-
-
