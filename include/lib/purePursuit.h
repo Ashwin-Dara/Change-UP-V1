@@ -1,23 +1,44 @@
-#include "main.h"
-#include "../include/lib/robot.h"
-#ifndef PURSUIT_H_
+#include "main.h" // <include = "main.h"> making this file part of PROS project
+#include "../include/lib/robot.h" // <include = "robot.h"> accessing all needed math files via config file
+// <header guard>
+#ifndef PURSUIT_H_ 
 #define PURSUIT_H_
 using namespace std; 
 #define N 22
 #define M 2
-int a; 
 
-//vec a(3, 2);
-//a.i; //3 
+/**
+ * <class = "vec"> 2 dimensional mathemtical vector class so that 
+ * normnalizing the path for the pursuit code later is condensed
+ * and easier 
+**/
+
 class vec{
     public: 
+
+        /**
+        * <var "i, j"> the i and j components of the vector that will be
+        * assigned via the constructor and can be modified later
+        *
+        * <var "projection"> scalar projection vector and its value will be 
+        * stored in this array
+        **/
+
         float i, j;  
         extern float projection[2] = {0, 0};
+
+        /**
+        * <param = "i, j"> constructor that will initialize the values of the vector
+        * summary: initializer
+        **/
+
         vec(float i = 0, float j = 0){ //constructor initing values of components
             this->i = i; 
             this->j = j;
         }
-        float mag(){ //returns the magnitude of the vec
+        
+        //<return> the magnitude of the vector created
+        float mag(){ 
             return sqrt(i*i + j*j);
         }
         void projection(const vec &scalarVec){
