@@ -11,6 +11,6 @@ bin/
 .vscode/
 compile_commands.json
 temp.log
-temp.errors
+temp.errors 
 *.ini
-.d/
+.d/ 
