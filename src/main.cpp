@@ -66,6 +66,7 @@ void autonomous() {}
  * the Field Management System or the VEX Competition Switch in the operator
  * control mode.
  *
+
  * If no competition control is connected, this function will run immediately
  * following initialize().
  *
@@ -74,19 +75,63 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
+
+	pros::Controller master(E_CONTROLLER_MASTER);
+	pros::Motor motor1(1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+	pros::Motor leftMotor(1, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
+	pros::Motor rightMotor(1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+	int push = 0;
+
+	int rightYaxis, leftYaxis;
+
+
+
+//assignment 1 
 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
+		if(master.get_digital(E_CONTROLLER_DIGITAL_A)) {
+			int totalpushes = push + 1;
+		}
+			if (totalpushes == 1) {
+				motor1.move_velocity(70);
+			}
 
-		left_mtr = left;
-		right_mtr = right;
-		pros::delay(20);
-	}
+			else if (totalpushes == 2) {
+				motor1.move_velocity(-70);
+			}
+
+			else if (totalpushes == 3) {
+				motor1.move_velocity(0);
+			}
+
+			else if (totalpushes >= 4) {
+				totalpushes == 1;
+			}
+		}
+	
+//assignment 2
+	while (true) {
+		rightYaxis = joystick.get_analog(ANALOG_RIGHT_Y);
+		leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);		
+		if(master.get_analog(rightYaxis) > 2 && < -2) {
+			rightMotor.move(rightYaxis);		
+		}
+		else
+		{
+			rightMotor = motor.set_voltage_limit(0);
+		}
+		if(master.get_analog(leftYaxis) > 2 && < -2) {
+			leftMotor.move(leftYaxis);
+		}
+		else
+		{
+			leftMotor = motor.set_voltage_limit(0);
+		}
+
+
+	}	
+}
+
+
+	
 }
