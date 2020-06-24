@@ -76,7 +76,7 @@ void autonomous() {}
  */
 void opcontrol() {
 
-	pros::Controller master(E_CONTROLLER_MASTER);
+	pros::Controller master(CONTROLLER_MASTER);
 	pros::Motor motor1(1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 	pros::Motor leftMotor(1, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
 	pros::Motor rightMotor(1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
@@ -86,46 +86,47 @@ void opcontrol() {
 
 
 
+
 //assignment 1 
 
 	while (true) {
-		if(master.get_digital(E_CONTROLLER_DIGITAL_A)) {
-			int totalpushes = push + 1;
+		if(master.get_digital(DIGITAL_A)) {
+			push = push + 1;
 		}
-			if (totalpushes == 1) {
+			if (push == 1) {
 				motor1.move_velocity(70);
 			}
 
-			else if (totalpushes == 2) {
+			else if (push == 2) {
 				motor1.move_velocity(-70);
 			}
 
-			else if (totalpushes == 3) {
+			else if (push == 3) {
 				motor1.move_velocity(0);
 			}
 
-			else if (totalpushes >= 4) {
-				totalpushes == 1;
+			else if (push >= 4) {
+				push = 1;
 			}
 		}
 	
 //assignment 2
 	while (true) {
-		rightYaxis = joystick.get_analog(ANALOG_RIGHT_Y);
-		leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);		
-		if(master.get_analog(rightYaxis) > 2 && < -2) {
+		rightYaxis = master.get_analog(ANALOG_RIGHT_Y);
+		leftYaxis = master.get_analog(ANALOG_LEFT_Y);		
+		if(abs(master.get_analog(ANALOG_RIGHT_Y)) > 2)  {
 			rightMotor.move(rightYaxis);		
 		}
 		else
 		{
-			rightMotor = motor.set_voltage_limit(0);
+			rightMotor.move(0);
 		}
-		if(master.get_analog(leftYaxis) > 2 && < -2) {
+		if(master.get_analog(ANALOG_LEFT_Y) > 2 && master.get_analog(ANALOG_LEFT_Y)< -2) {
 			leftMotor.move(leftYaxis);
 		}
 		else
 		{
-			leftMotor = motor.set_voltage_limit(0);
+			leftMotor.move(0);
 		}
 
 
@@ -134,4 +135,4 @@ void opcontrol() {
 
 
 	
-}
+
