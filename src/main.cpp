@@ -1,4 +1,5 @@
 #include "main.h"
+#include "robot.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -83,14 +84,9 @@ void opcontrol() {
 ///motor, joystick, and variables
 int press_amount = 0;
 float rightYaxis, leftYaxis;
-pros::Motor motor1 (1, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
-pros::Motor right_motor (2, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
-pros::Motor left_motor (3, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
-pros::Controller joystick (CONTROLLER_MASTER);
 
 
-
-///new assignment extern was defined in "main.h", as it is already included at the top
+///new assignment extern was defined in "robot.h", as it is already included at the top
  pros::Motor FLWheel (1, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
  pros::Motor FRWheel (2, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
  pros::Motor BLWheel (3, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
@@ -102,7 +98,7 @@ pros::Controller joystick (CONTROLLER_MASTER);
 
 /// this is assignment 1, the 3-button toggle
 while (true){
-
+/*
 if (joystick.get_digital(DIGITAL_A)){
 	press_amount = press_amount +1;
 
@@ -155,6 +151,7 @@ left_motor.move(leftYaxis);
 }
 
 
+*/
 
 
 
