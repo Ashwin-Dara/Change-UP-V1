@@ -81,74 +81,78 @@ void autonomous() {}
 
 void opcontrol() {
 	
-///motor, joystick, and variables
-int press_amount = 0;
+///variables
+int press_amount = 2;
+int target = 0;
+bool rising_edge;
 float rightYaxis, leftYaxis;
 
 
-///new assignment extern was defined in "robot.h", as it is already included at the top
- pros::Motor FLWheel (1, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
- pros::Motor FRWheel (2, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
- pros::Motor BLWheel (3, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
- pros::Motor BRWheel (4, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
- pros::Motor fly (5, MOTOR_GEARSET_36, true, MOTOR_ENCODER_DEGREES);
- pros::Motor IntakeL (6, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
- pros::Motor IntakeR (7, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
- pros::Controller joystick (CONTROLLER_MASTER);
 
-/// this is assignment 1, the 3-button toggle
+ 
+/// this is the new assignment 2, the 2-button toggle with rising edge and mod operator
 while (true){
-/*
-if (joystick.get_digital(DIGITAL_A)){
-	press_amount = press_amount +1;
 
-	if (press_amount >= 4){
-		press_amount = 1;
-	}
+	if (joystick.get_digital(DIGITAL_A) && !rising_edge) {
+
+	      press_amount ++;
+
+		}
 	
-	if (press_amount == 1){
+	if (press_amount %2 == 1) {
 
-		motor1.move_velocity(70);
+			target = 150;
 
 	}
 
-	else if (press_amount == 2){
+	else if (press_amount %2 == 0) {
 		
-		motor1.move_velocity(-70);
+			target = 0;
 
 	}
 
-	else if (press_amount == 3){
+	
+
+	else {
 		
-		motor1.move_velocity(0);
+		pros::delay (20);
 
 	}
 
-	else pros::delay (20);
+
+	}
+
+rising_edge = joystick.get_digital(DIGITAL_A); //rising edge protector
+pros::delay (20);
 
 
 
-}
+
+	/*
 /// assignment 2 is here
 
 
-rightYaxis = joystick.get_analog(ANALOG_RIGHT_Y);
-leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);
+	rightYaxis = joystick.get_analog(ANALOG_RIGHT_Y);
+	leftYaxis = joystick.get_analog(ANALOG_LEFT_Y);
 
 
 
-if (abs(rightYaxis > 2)){
+	if (abs(rightYaxis > 2)){
 	
-right_motor.move(rightYaxis);
+		right_motor.move(rightYaxis);
 
-}
+	}
 
-if (abs(leftYaxis > 2)){
+	else{ 
+		right_motor.move(0);
+	}
+
+	if (abs(leftYaxis > 2)){
 	
-left_motor.move(leftYaxis);
+		left_motor.move(leftYaxis);
 
 
-}
+	}
 
 
 */
@@ -161,4 +165,3 @@ left_motor.move(leftYaxis);
 }
 
 	
-}
