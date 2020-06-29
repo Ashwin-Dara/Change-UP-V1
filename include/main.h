@@ -79,3 +79,11 @@ void opcontrol(void);
 #endif
 
 #endif  // _PROS_MAIN_H_
+extern  pros::Controller master(CONTROLLER_MASTER);
+extern	pros::Motor rightMotor1;
+extern	pros::Motor leftMotor;
+extern	pros::Motor rightMotor2;
+extern  pros::Motor leftMotor2;
+extern  pros::Motor motorFlywheel;
+extern  pros::Motor motorIntake1;
+extern  pros::Motor motorIntake2;
