@@ -6,10 +6,12 @@ public:
     float m_kp;
     float m_ki;
     float m_kd;
-    int error;
-    int prev_error;
-    int integral;
-    int derivative;
+    int error = 0;
+    int prev_error = 0;
+    int integral = 0;
+    int derivative = 0;
+    float power = 0;
+    float prev_power = 0;
 
     PID(float kp, float ki, float kd){
         m_kp = kp;
@@ -17,15 +19,28 @@ public:
         m_kd = kd;
     }
 
-    float do (int target, int input, int integralKI, int maxI){
-        prev_error = error
-        error = target - input
+    float do (int target, int input, int integralKI, int maxI, int slew, bool slewq){ 
+        prev_power = power;
+        prev_error = error;
+        error = target - input;
 
         std::abs(error) < integralKI? integral += error : integral = 0;
-        integral >= 0? integral = min(integral, maxI) : integral = max(integral, -maxI)
+        integral >= 0? integral = min(integral, maxI) : integral = max(integral, -maxI);
 
-        derivative = error - prev_error
-        return m_kp*error + m_ki*integral + m_kd*derivative
+        derivative = error - prev_error;
+
+        power = m_kp*error + m_ki*integral + m_kd*derivative;
+
+        if (slewq){
+            if (power <= prev_power + slew){
+                slewq = false;
+            }
+            else if (power - prev_power > slew){
+                power = prev_power + slew;
+            }
+        }
+
+        return power;
     }
 };
 
