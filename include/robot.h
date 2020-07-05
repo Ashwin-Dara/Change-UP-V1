@@ -1,3 +1,4 @@
+#include "main.h" //you always need to include main.h as well 
 //deleted the line that you had
 #ifndef ROBOT_H
 #define ROBOT_H
