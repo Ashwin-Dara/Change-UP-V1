@@ -24,5 +24,6 @@ void opcontrol() {
         btnA = master.get_digital(DIGITAL_A); //defining variable as button press
         pros::delay(20);
     }
+    //test
 
 }
