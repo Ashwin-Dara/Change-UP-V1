@@ -9,13 +9,13 @@ void opcontrol() {
         if(master.get_digital(DIGITAL_A) && !btnA){  //if button is pressed and the button hasn't been pressed before add one to "count"
             count++;
             if (count %2 == 1) {
-                target = target
+                target = 0;
             }
             if (count %2 == 0) {
-                target = 150
+                target = 150;
             }
-            if (count %2 == 1/3) {
-                target = target
+            if (count %2 == 1.5) {
+                target = 0;
                 count = 1
             }
         
