@@ -20,18 +20,12 @@ void operatorControl(bool usingSpline = false){
         if(abs(joystick.get_analog(ANALOG_LEFT_Y)) > 2)
             leftPower = (powerSpline(leftAxis) - powerSpline(0));
         else leftPower = 0; 
-            driveVoltageAssign(rightPower*95, leftPower*95);
+         //   driveVoltageAssign(rightPower*95, leftPower*95);
     } 
     else if(!usingSpline){   
         rightPower = rightAxis * 110; 
         leftPower = leftAxis * 110; 
-        driveVoltageAssign(rightPower, leftPower);
         }
     }
-
-
-
-
-
-
+    
 }

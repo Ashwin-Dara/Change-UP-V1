@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from tkinter import *
 
 class Logger:
     def __init__(self, file, y_axis, streamArg):

@@ -17,6 +17,55 @@ equations:
 position vector = {x, y, theta};
 
 textbook document: 
+https://github.com/team914/autolib-pdfs
 
+distance = avg(delta_rE + delta_lE);
+x += distance * cos(yaw);
+y += distance * sin(yaw);
 
 */
+
+extern std::unique_ptr rE; 
+extern std::unique_ptr lE; 
+extern std::unique_ptr gyro; 
+
+class Odom {
+    private: 
+        float avg(float in[], int size){ //bogus//make manual input size 
+            for(int i = 0; i < size; i++)
+                sum += in[i];
+            return (sum/size);
+        }
+
+        float radToDeg(float rad){
+            return (rad * (180/PI));
+        }
+
+        float degToRad(float deg){
+            return (deg * (PI/180));
+        }
+
+    public: 
+        float xPos, yPos, theta = 0.0; 
+        void init(){
+            xPos = yPos = theta = 0.0; 
+        } //sets all var to zero?
+        
+        void beginPosTracking(){
+            float rS = rE->get_rotation();
+            float ls = lE->get_rotation();
+            pros::delay(20);
+            float dR = rE->get_rotation() - rS; 
+            float dL = lE->get_rotation() - ls; 
+            float s = {dR, dL}; 
+            float distance = avg(s, 2);
+
+                theta = gyro->get_yaw();
+                xPos += distance*cos(radToDeg(theta));
+                yPos += distance*sin(radToDeg(theta)); 
+        }
+
+        void magAdjust();
+        //
+
+}

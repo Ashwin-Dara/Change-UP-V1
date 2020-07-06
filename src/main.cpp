@@ -84,14 +84,24 @@ void autonomous() {}
 
 
 void opcontrol() { 
-	int rightYAxis, leftYAxis; 
-	pros::Controller joystick(CONTROLLER_MASTER); //controller with the name "joystick"
-	pros::Motor motor1 (1, MOTOR_GEARSET_6, false, MOTOR_ENCODER_DEGREES); //red motor 
+
+	 //controller with the name "joystick"
+	int count;
+	int rightY;
+	int leftY;
+	bool btnA;  //bool to check if the previous state of the button was true 
 	while (true) {
-		rightYAxis = joystick.get_analog(ANALOG_RIGHT_Y); //rightYAxis = how far the stick is pushed
-		leftYAxis = joystick.get_analog(ANALOG_LEFT_Y);
-		motor1.move(rightYAxis); //powr of the motor depends on how far the stick is pushed
-		pros::delay(20); //sleeps in milliseconds
+		
+/*
+
+		if(joystick.get_digital(DIGITAL_A) && !btnA){
+			count++; //in order for the condition to be true, the previous state of the 
+					// button must be false and the button must currently be pressed
+		}
+		btnA = joystick.get_digital(DIGITAL_A); //assigning the previous press to this bool
+		
+		*/
+		pros::delay(20); //sleeps in milliseconds : prevents hogging of resources
 	}
 }
 
