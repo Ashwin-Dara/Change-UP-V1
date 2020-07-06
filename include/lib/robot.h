@@ -1,45 +1,39 @@
 #include "main.h"
 #include <string>
 #include <iostream>
+#include <memory>
 #include <fstream>
 #include <vector>
 #include <cmath>
-#ifndef ROBOT_H
-#define ROBOT_H
-
+#ifndef ROBOT_H_
+#define ROBOT_H_
+#define DRIVE_RT 1 //rightTop Drive
+#define DRIVE_RB 2 //rightBottom Drive
+#define DRIVE_LT 3 //leftTop Drive
+#define DRIVE_LB 4 //leftBottom Drive
 using namespace pros; 
 
-int sgn(int x);
+//single driver (primary joystick)
+extern Controller controller;
 
-#define DEGREES E_MOTOR_ENCODER_DEGREES
-#define GREEN E_MOTOR_GEARSET_18
-#define RED E_MOTOR_GEARSET_36
-#define DRIVE_RIGHT_1 1 
-#define DRIVE_LEFT_1 3
-#define DRIVE_RIGHT_2 2
-#define DRIVE_LEFT_2 4
+/*
+ * Drive Configuration:  
+ * 4 motor drive 200RPM 
+ * 
+ * one motor on each side are elevated, two in total 
+ * are elevated
+ * the other motors are not 
+ * 
+ * "T" after the name clarifies the motor as being "top" or the 
+ * elevated motor
+*/
 
-#define LIFT_LEFT 10
-#define LIFT_RIGHT 9
-
-#define INTAKE_RIGHT 12
-#define INTAKE_LEFT 11
-
-#define ENC_RIGHT 'a'
-#define ENC_LEFT 'c'
-#define PI 3.1415
-
-extern Controller joystick;
-extern Motor rm1; 
-extern Motor rm2; 
-extern Motor lm1; 
-extern Motor lm2; 
-
-extern Motor liftL, liftR; 
-extern Motor intakeL, intakeR; 
-
-extern ADIEncoder rEnc;
-extern ADIEncoder lEnc; 
-extern Imu mainIMU; 
+extern Motor rDriveT; 
+extern Motor rDriveB;
+extern Motor lDriveT;
+extern Motor lDriveB;  
+void right_move(float speed); 
+void left_move(float speed); 
+void chas_move(float lspeed, float rspeed);
 
 #endif
