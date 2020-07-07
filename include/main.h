@@ -27,14 +27,6 @@
 
 
 
-extern pros::Motor FLWheel;
-extern pros::Motor FRWheel;
-extern pros::Motor BLWheel;
-extern pros::Motor BRWheel;
-extern pros::Motor fly;
-extern pros::Motor IntakeL;
-extern pros::Motor IntakeR;
-extern pros::Controller joystick;
 
 #define PROS_USE_SIMPLE_NAMES
 
