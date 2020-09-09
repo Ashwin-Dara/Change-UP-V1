@@ -2,6 +2,12 @@
     "C_Cpp.dimInactiveRegions": false,
     "python.pythonPath": "C:\\Users\\Bob\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
     "files.associations": {
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "ios": "cpp",
+        "iosfwd": "cpp",
+        "type_traits": "cpp",
+        "xutility": "cpp",
+        "cstdlib": "cpp",
+        "chrono": "cpp"
     }
 }

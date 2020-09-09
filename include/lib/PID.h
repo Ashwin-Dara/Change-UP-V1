@@ -1,5 +1,7 @@
-#ifndef PID_A_H
-#define PID_A_H
+#include "main.h"
+
+#ifndef PID_H_
+#define PID_H_
 
 class PID{
 public:
@@ -12,6 +14,7 @@ public:
     int derivative = 0;
     float power = 0;
     float prev_power = 0;
+    bool slew_on = true;
 
     PID(float kp, float ki, float kd){
         m_kp = kp;
@@ -19,23 +22,23 @@ public:
         m_kd = kd;
     }
 
-    float do (int target, int input, int integralKI, int maxI, int slew, bool slewq){ 
+    float calc (int target, float input, int integralKI, int maxI, int slew, bool m_slew_on){
         prev_power = power;
         prev_error = error;
         error = target - input;
 
         std::abs(error) < integralKI? integral += error : integral = 0;
-        integral >= 0? integral = min(integral, maxI) : integral = max(integral, -maxI);
+        integral >= 0? integral = std::min(integral, maxI) : integral = std::max(integral, -maxI);
 
         derivative = error - prev_error;
 
         power = m_kp*error + m_ki*integral + m_kd*derivative;
-
-        if (slewq){
-            if (power <= prev_power + slew){
-                slewq = false;
+        
+        if(slew_on && m_slew_on){
+            if (std::abs(power) <= std::abs(prev_power) + std::abs(slew)){
+                slew_on = false;
             }
-            else if (power - prev_power > slew){
+            else{
                 power = prev_power + slew;
             }
         }

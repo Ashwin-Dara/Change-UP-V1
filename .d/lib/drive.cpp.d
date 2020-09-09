@@ -67,7 +67,7 @@ bin/lib/drive.cpp.o: src/lib/drive.cpp include/main.h include/api.h \
  include/pros/llemu.h include/pros/misc.hpp include/pros/misc.h \
  include/pros/motors.hpp include/pros/motors.h include/pros/rtos.hpp \
  include/pros/rtos.h include/pros/vision.hpp include/pros/vision.h \
- include/../include/lib/drive.h include/../include/lib/robot.h
+ include/lib/drive.h include/lib/robot.h
 
 include/main.h:
 
@@ -327,6 +327,6 @@ include/pros/vision.hpp:
 
 include/pros/vision.h:
 
-include/../include/lib/drive.h:
+include/lib/drive.h:
 
-include/../include/lib/robot.h:
+include/lib/robot.h:

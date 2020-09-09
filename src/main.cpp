@@ -1,5 +1,7 @@
 #include "main.h"
 #include "../include/lib/drive.h"
+#include "../include/lib/PID.h"
+#include "../include/lib/movement.h"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -73,8 +75,10 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	//move(1000, true, 1);
 	while (true) {
 		drive::opcontrol();
+
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
