@@ -6,6 +6,22 @@
 using namespace std; 
 #define N 22
 #define M 2
+//position {row}{column}
+
+//if the corrections provided by "Point corrections" are too steep then we will need to dampen the corrections by a little...it will always be closer to the target than never correcting
+//this function will be especially used whenever there exists a tendency to overshoot/be right on the target 
+
+float dampen(int a, int b) { 
+    float k = (b, a);
+    if( k < 0 ) 
+        k = 1; //1 is the baseline that we want to achieve 
+    if( k >= 1)
+        k = (sqrt(k - 1) + 1); //sqrt of a number greater t4han 1 is equal to a new number less than the previous number
+    if (k < 1) 
+        k = sqrt(k);     //sqrt of a number less than 1 is equal to a new number greater than the previous number
+    return k; 
+}
+
 
 /**
  * <class = "vec"> 2 dimensional mathemtical vector class so that 

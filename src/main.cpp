@@ -8,6 +8,31 @@
  * to keep execution time for this mode under a few seconds.
  */
 
+
+ class PID{
+	 public: 
+	 	int power(){
+			 return 1; 
+		 }
+
+ };
+
+class Lift : public PID {
+    public:
+	int a; 
+    void loop(){
+		while(1){
+			a = power(); 
+		}
+	}
+};
+Lift lift1; 
+namespace drive{
+void iterate(){
+	lift1.loop();
+}
+}
+
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
@@ -84,6 +109,7 @@ void autonomous() {}
 
 
 void opcontrol() { 
+	Lift dr4b; 
 
 	 //controller with the name "joystick"
 	int count;
@@ -91,7 +117,7 @@ void opcontrol() {
 	int leftY;
 	bool btnA;  //bool to check if the previous state of the button was true 
 	while (true) {
-		
+		pros::Task t1(lift.loop);
 /*
 
 		if(joystick.get_digital(DIGITAL_A) && !btnA){

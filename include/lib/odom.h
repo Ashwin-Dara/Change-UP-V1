@@ -22,12 +22,11 @@ https://github.com/team914/autolib-pdfs
 distance = avg(delta_rE + delta_lE);
 x += distance * cos(yaw);
 y += distance * sin(yaw);
-
 */
 
-extern std::unique_ptr rE; 
-extern std::unique_ptr lE; 
-extern std::unique_ptr gyro; 
+extern std::shared_ptr rEncoder, lEncoder;
+extern std::shared_ptr rightMotor, rightMotor2, leftMotor, leftMotor2;  
+extern std::shared_ptr _IMU; 
 
 class Odom {
     private: 
