@@ -19,6 +19,7 @@ resolved by changing our desired orientation
 
 class PointCorrections {
     public: 
+    
     float updatedThetaTarget; 
     float updatedLinearTarget; 
     

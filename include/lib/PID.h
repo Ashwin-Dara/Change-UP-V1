@@ -5,9 +5,19 @@
 
 class PID{
     public: 
-        float kPt, kIt, kDt; 
-        int error, lasterror, pP, iP, dP, slope, sum; 
-        int lowBound, highBound, maxPower, maxSum; 
+        float kP; 
+        float kI; 
+        float kD;
+       
+        float kPt; 
+        float kIt;
+        float kDt; 
+        
+        int error, lasterror; 
+        int pP, iP, dP, slope; 
+        int sum, lowbound, highbound; 
+        int maxPower, maxSum; 
+
     virtual void init();
     void setGains(float kPt, float kIt, float kDt);
     int pwr(int sensor, int target);

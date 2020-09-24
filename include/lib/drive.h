@@ -13,24 +13,26 @@
 #define DRIVE_H_
 //extern pros::Task t1; 
 
-class Drive : PID : PointCorrections{
+class Drive : public PID : public PointCorrections {
     protected:
-        int16_t currentLinearTarget;
-        int16_t currentThetaTarget; 
+    int16_t currentLinearTarget;
+    int16_t currentThetaTarget; 
 
     public: 
+    bool useSlew; 
+    bool headerCorrect; 
+        
     drive()
     ~drive() = default; 
 
-    void moveTo(int linearMagnitude);
-    void turnTo(int degreesToTurn);
+    void move(int linearMag, int theta);
     void waitUntilSettled(int toleranceForError = TOLERANCE_FOR_ERROR);
     //overloading
     void waitUntilSettled(int toleranceForError = TOLERANCE_FOR_ERROR, int settleTime);
     void iterate(); 
 };
 
-class MotionProfile : Odom {
+class MotionProfile : public Odom {
     private: 
         appendPowerArray();
     
