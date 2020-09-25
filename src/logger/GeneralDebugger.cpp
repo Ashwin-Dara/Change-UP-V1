@@ -4,8 +4,10 @@
 class Llemu{
   public:
     static bool heaviside; 
-    
+    static int lineNumberCount; 
+  
     static void init(){
+      lineNumberCount = 0; 
       pros::lcd::initialize(); 
     }
     
@@ -18,6 +20,6 @@ class Llemu{
     
     static void debugIntake(const Intake &intake); 
     //display the true velocity of each component of the subsystem
-    
+     
 
 };
