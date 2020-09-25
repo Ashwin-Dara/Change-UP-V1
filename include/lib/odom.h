@@ -1,6 +1,7 @@
 #include "main.h"
 #include "../include/lib/robot.h"
- 
+ifndef ODOM_H
+#define ODOM_H
 /* 
 1) write the basic class in here with all of the functions 
     - functions will include ability to estimate abs position of the robot 
@@ -20,3 +21,25 @@ textbook document:
 
 
 */
+
+class Odometry{
+ private: 
+  float dampen(int x); 
+  //will dampen the correction gains since with every point update, 
+  // while the position of the robot gets more accurate wiht each correct
+  // pose becomes more inaccurate the more inaccuracies are corrected
+  // with this comes the need to dampen the corrections and ensure that nothing is overpowering
+ public: 
+  extern int pos[3]; 
+  extern int desiredPos[3];
+  
+  ~Odometry() = default; 
+  void init(); //should init the position to 0, 0, 0
+  void beginPositionTracking(); //will begin the calculations using the appropriate math
+  void stopPositionTracking(); //
+  //void pointUpdate(); 
+  
+};
+
+
+#endif 
