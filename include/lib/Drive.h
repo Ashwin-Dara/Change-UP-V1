@@ -5,6 +5,14 @@
 #define K 0.01
 #define A 0.9
 #define C -0.07
+#define LINEAR_KP 0.2
+#define LINEAR_KI 0
+#define LINEAR_KD 0
+#define TURN_KP 0.5 //placeholder
+#define TURN_KI 0
+#define TURN_KD 0
+#define INTEGRAL_BOUND 50
+#define MAX_INTEGRAL 100
 #ifdef DRIVE_H_
 #define DRIVE_H_
 
