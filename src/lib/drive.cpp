@@ -42,6 +42,17 @@ void operatorControl(bool usingSpline = false){
                 thetaSet += degrees; 
             }
             void iterate(){
+                int rightPidPower = calc(rightSet, rightMotor.get_value()); 
+                int leftPidPower = calc(leftSet, leftMotor.get_value()); 
+                
+                pros::delay( 25 ); 
+                if(slew) { 
+                    int newPidPower = calc
+                }
+                
+                else { 
+                
+                }
             }
         
     };
