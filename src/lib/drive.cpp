@@ -31,11 +31,12 @@ void operatorControl(bool usingSpline = false){
     //WILL FORMAT LATER // TEMP
     class Drive : public PID : public LinearOdometry{ 
         public: 
-            int16_t linearTarget; 
+            int16_t rightSet, leftSet; 
             int16_t thetaSet; 
             Drive() : rightSet(0), leftSet(0), thetaSet(0);
             void moveRelative(int linearTarget){
-                this->linearTarget += linearTarget; 
+                rightSet += linearTarget;
+                leftSet += linearTarget;
             }
             void turnRelative(int degrees){
                 thetaSet += degrees; 
@@ -45,13 +46,22 @@ void operatorControl(bool usingSpline = false){
                 int leftPidPower = calc(leftSet, leftMotor.get_value()); 
                 
                 pros::delay( 25 ); 
+                
                 if(slew) { 
-                    int newPidPower = calc
+                    int newRPid = calc(rightSet, rightMotor.get_value() ); 
+                    int newLPid = calc(leftSet, leftMotor.get_value() ); 
+                    if ( abs( newRPid - rightPidPower) > SLEW_LIMIT) 
+                        rightPidPower += sgn( newRPid - rightPidPower ) * DRIVE_KA;
+                        else rightPidPower = newRPid; 
+                    if ( abs( newLPid - leftPidPower) > SLEW_LIMIT)
+                        leftPidPower += sgn( newLPid - leftPidPower) * DRIVE_KA; 
+                        else leftPidPower = newLPid; 
                 }
                 
-                else { 
-                
-                }
+                //int thetaCorrect = calc(
+                //add in thetacorrection 
+                driveMove( rightPidPower, leftPidPower ); 
+
             }
         
     };
