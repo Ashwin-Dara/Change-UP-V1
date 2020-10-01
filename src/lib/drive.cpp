@@ -31,12 +31,11 @@ void operatorControl(bool usingSpline = false){
     //WILL FORMAT LATER // TEMP
     class Drive : public PID : public LinearOdometry{ 
         public: 
-            int16_t rightSet, leftSet; 
+            int16_t linearTarget; 
             int16_t thetaSet; 
             Drive() : rightSet(0), leftSet(0), thetaSet(0);
             void moveRelative(int linearTarget){
-                rightSet += linearTarget; 
-                leftSet += linearTarget; 
+                this->linearTarget += linearTarget; 
             }
             void turnRelative(int degrees){
                 thetaSet += degrees; 
