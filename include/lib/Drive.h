@@ -45,16 +45,17 @@ namespace drive{
 
     void operatorControl(bool usingSpine = false);
     
-    class autoChassis : public PID {
-        //vector representation of targets
-        extern int reqPos[2], currentPos[2]; 
-
-        //types of types
-        int linearTarget, thetaTarget; 
-        ~autoChassis(); 
-        virtual void iterate();
-
-    };
+    class Drive : public PID { 
+	    public: 
+	        int16_t rightSet, leftSet, thetaSet; 
+	        Drive(); 
+	        ~Drive(); 
+	
+        	void moveRelative(int linearTarget); 
+        	void turnRelative(int degrees); 
+        	void iterate(); 
+	
+        }; 
 }
 
 #endif
