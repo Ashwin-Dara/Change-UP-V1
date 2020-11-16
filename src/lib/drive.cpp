@@ -58,9 +58,8 @@ void operatorControl(bool usingSpline = false){
                         else leftPidPower = newLPid; 
                 }
                 
-                //int thetaCorrect = calc(
-                //add in thetacorrection 
-                driveMove( rightPidPower, leftPidPower ); 
+                  int thetaCorrect = THETA_GAIN * calc(thetaSet, IMU.get_yaw());
+                  driveMove( rightPidPower + thetaCorrect, leftPidPower - thetaCorrect); 
 
             }
         
