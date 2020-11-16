@@ -28,6 +28,7 @@ void operatorControl(bool usingSpline = false){
         driveVoltageAssign(rightPower, leftPower);
         }
     }
+    
     //WILL FORMAT LATER // TEMP
     class Drive : public PID : public LinearOdometry{ 
         public: 
