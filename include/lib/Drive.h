@@ -13,6 +13,7 @@
 #define TURN_KD 0
 #define INTEGRAL_BOUND 50
 #define MAX_INTEGRAL 100
+#define THETA_GAIN 0.1
 #ifdef DRIVE_H_
 #define DRIVE_H_
 
