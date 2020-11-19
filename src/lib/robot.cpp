@@ -9,11 +9,11 @@ pros::Motor lDriveT(DRIVE_LT, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 pros::Motor lDriveB(DRIVE_LB, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 pros::Motor lIntake(INTAKE_LEFT, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
 pros::Motor rIntake(INTAKE_RIGHT, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
-pros::Motor indexer(INDEXER, MOTOR_GEARSET_18, false, MOTOR_ENCODER_DEGREES);
-pros::Motor outake(OUTAKE, MOTOR_GEARSET_6, false, MOTOR_ENCODER_DEGREES);
-//pros::IMU imu(IMU_PORT);
-pros::ADIAnalogIn index_line(LINE_TRACKER_PORT);
-pros::ADIAnalogIn front_line(LINE_TRACKER_PORT);
+pros::Motor indexer(INDEXER, MOTOR_GEARSET_18, true, MOTOR_ENCODER_DEGREES);
+pros::Motor outake(OUTAKE, MOTOR_GEARSET_6, true, MOTOR_ENCODER_DEGREES);
+pros::Imu imu(IMU_PORT);
+pros::ADIAnalogIn index_bottom(INDEX_BOTTOM_LINE_PORT);
+pros::ADIAnalogIn index_top(INDEX_TOP_LINE_PORT);
 
 void right_move(float speed){
     rDriveT.move(speed);

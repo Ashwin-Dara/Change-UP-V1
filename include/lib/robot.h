@@ -7,17 +7,18 @@
 #include <cmath>
 #ifndef ROBOT_H_
 #define ROBOT_H_
-#define DRIVE_RT 1 //rightTop Drive
-#define DRIVE_RB 2 //rightBottom Drive
-#define DRIVE_LT 3 //leftTop Drive
-#define DRIVE_LB 4 //leftBottom Drive
-#define INTAKE_LEFT 5
-#define INTAKE_RIGHT 6
-#define INDEXER 7
-#define OUTAKE 8
+#define DRIVE_RT 18 //rightTop Drive
+#define DRIVE_RB 12 //rightBottom Drive
+#define DRIVE_LT 17 //leftTop Drive
+#define DRIVE_LB 16 //leftBottom Drive
+#define INTAKE_LEFT 15
+#define INTAKE_RIGHT 8
+#define INDEXER 11
+#define OUTAKE 13
 
 #define IMU_PORT 9
-#define LINE_TRACKER_PORT 1
+#define INDEX_BOTTOM_LINE_PORT 2
+#define INDEX_TOP_LINE_PORT 4
 using namespace pros; 
 
 //single driver (primary joystick)
@@ -39,6 +40,13 @@ extern Motor rDriveT;
 extern Motor rDriveB;
 extern Motor lDriveT;
 extern Motor lDriveB;  
+extern Motor lIntake;
+extern Motor rIntake;
+extern Motor indexer;
+extern Motor outake;
+extern ADIAnalogIn index_bottom;
+extern ADIAnalogIn index_top;
+extern Imu imu;
 void right_move(float speed); 
 void left_move(float speed); 
 void chas_move(float lspeed, float rspeed);

@@ -22,14 +22,14 @@ void move(int target, bool ask_slew, int slew_rate){
     int count;
 
     reset_encoders();
-    //imu_offset = imu.get_yaw();
+    imu_offset = imu.get_yaw();
 
     while(true){
         
         encoder_average = (rDriveB.get_position() + lDriveB.get_position()) / 2;
         voltage = straight.calc(target, encoder_average, INTEGRAL_KICK_IN, MAX_INTEGRAL, slew_rate, ask_slew);
 
-        //heading = imu.get_yaw(); - imu_offset;
+        heading = imu.get_yaw(); - imu_offset;
 
         chas_move(voltage, voltage); // (voltage + heading, voltage - heading)
 
@@ -42,7 +42,7 @@ void move(int target, bool ask_slew, int slew_rate){
     chas_move(0,0);
 }
 
-/*void turn(int target, bool ask_slew, int slew_rate){
+void turn(int target, bool ask_slew, int slew_rate){
     PID rotate(TURN_KP, TURN_KI, TURN_KD);
 
     float voltage;
@@ -64,4 +64,4 @@ void move(int target, bool ask_slew, int slew_rate){
     }
 
     chas_move(0,0);
-}*/
+}

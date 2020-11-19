@@ -69,7 +69,7 @@ bin/main.cpp.o: src/main.cpp include/main.h include/api.h \
  include/pros/rtos.h include/pros/vision.hpp include/pros/vision.h \
  src/../include/lib/drive.h src/../include/lib/robot.h \
  src/../include/lib/PID.h src/../include/lib/movement.h \
- src/../include/lib/PID.h
+ src/../include/lib/PID.h src/../include/lib/intake.h
 
 include/main.h:
 
@@ -338,3 +338,5 @@ src/../include/lib/PID.h:
 src/../include/lib/movement.h:
 
 src/../include/lib/PID.h:
+
+src/../include/lib/intake.h:

@@ -1,7 +1,8 @@
 #include "main.h"
 #include "robot.h"
+#include "intake.h"
 
-#define BALL_CONSTANT 0
+#define BALL_CONSTANT 2700
 #define INTAKE_SPEED 127
 #define INDEXER_SPEED 127
 #define OUTAKE_SPEED 127
@@ -20,56 +21,140 @@ void outake_move(float outake_speed){
     outake.move(outake_speed);
 }
 
-void intakeIndex_move(float intake_speed, float index_speed){
-    lIntake.move(intake_speed);
-    rIntake.move(intake_speed);
-    indexer.move(index_speed);
-}
 
-void opControl(){
-    while(1){
-        int rIntakeSpeed, lIntakeSpeed, indexerSpeed; 
+float line_average;
+bool autoShootNoIndexOn = false;
+bool autoShootIndexOn = false;
+int stage = 1;
 
-        if (line.get_value() > BALL_CONSTANT){ //if a ball is detected
-            rIntakeSpeed = INTAKE_SPEED; 
-            lIntakeSpeed = INTAKE_SPEED; 
-            indexerSpeed = 0; 
-        }
-        else {
-            rIntakeSpeed = INTAKE_SPEED; 
-            lIntakeSpeed = INTAKE_SPEED; 
-            indexerSpeed = INDEXER_SPEED; 
-        }
-
-        if(controller.get_digital(DIGITAL_L1)){
-            rIntake.move(rIntakeSpeed);
-            lIntake.move(lIntakeSpeed);
-            indexer.move(indexerSpeed);
-        }       
-        else { //if no buttons are pressing then make ALL the motors of the intake stop using motor.stop()
-            rIntake.stop();
-            lIntake.stop();
-            indexer.stop();
-
-        }
-
-        if (controller.get_digital_new_press(DIGITAL_R2)) {
-            while (line.get_value() > BALL_CONSTANT){
-                indexer.move(INDEXER_SPEED);
-                outake.move(OUTAKE_SPEED);
-                
-            } 
-            indxer.stop();
-            delay(20);
-            outake.stop();
+void autoShootIndex(){
+    /*
+    while (index_line.get_value() > BALL_CONSTANT){//Shoots First Ball
+        indexer.move(INDEXER_SPEED);
+        outake.move(OUTAKE_SPEED);
+    } 
+    indexer.move(0);
+    delay(20);
+    outake.move(0);
         
-            while (line.get_value() < BALL_CONSTANT){
+    while (index_line.get_value() < BALL_CONSTANT){ //Indexes Next Balll
+        indexer.move(INDEXER_SPEED);
+    }
+    indexer.move(0);
+    autoShootOn = false;*/
+
+    //line_average = ((index_bottom.get_value() + index_top.get_value()) / 2);
+    line_average = index_bottom.get_value();
+    if (stage == 1){
+        if (line_average < BALL_CONSTANT) {//Shoots First Ball
+            indexer.move(INDEXER_SPEED);
+            outake.move(OUTAKE_SPEED); 
+        }
+        else{
+            stage = 2;
+        }
+    }
+
+    else if (stage == 2){
+        indexer.move(0);
+        delay(500);
+        outake.move(0);
+        stage = 3;
+    }
+
+    else if (stage == 3){
+        if(line_average > BALL_CONSTANT){ //Indexes Next Balll
+            indexer.move(INDEXER_SPEED);
+            outake.move(-OUTAKE_SPEED); 
+        }
+        else{
+            stage = 4;
+        }
+    }
+
+    else if (stage == 4){
+        indexer.move(0);
+        stage = 1;
+        autoShootIndexOn = false;
+    }
+
+}
+ void autoShootNoIndex(){
+    line_average = index_bottom.get_value();
+        if (stage == 1){
+            if (line_average < BALL_CONSTANT) {//Shoots First Ball
                 indexer.move(INDEXER_SPEED);
+                outake.move(OUTAKE_SPEED); 
             }
-            indexer.stop();
+            else{
+                stage = 2;
+            }
         }
 
+        else if (stage == 2){
+            indexer.move(0);
+            delay(500);
+            outake.move(0);
+            stage = 4;
+        }
 
+        else if (stage == 4){
+            stage = 1;
+            autoShootNoIndexOn = false;
+        }
+    }
+namespace intake{
+    void opcontrol(){
+
+        /*if(controller.get_digital(DIGITAL_L1)){
+            intake_move(100);
+        }       
+        else if(controller.get_digital(DIGITAL_L2)){
+            intake_move(-100);
+        }       
+        else{
+            rIntake.move(0);
+            lIntake.move(0);
+        }*/
+
+        
+
+        if (controller.get_digital_new_press(DIGITAL_R1)) {
+            autoShootNoIndexOn = true;
+        }
+        if (controller.get_digital_new_press(DIGITAL_R2)) {
+            autoShootIndexOn = true;
+        }
+
+        if(autoShootNoIndexOn){
+            autoShootNoIndex();
+        }
+        else if(autoShootIndexOn){
+            autoShootIndex();
+        }
+
+        
+        if(controller.get_digital(DIGITAL_L1)){
+            intake_move(127);
+            indexer_move(127);
+            outake_move(-127);
+        }       
+        else if(controller.get_digital(DIGITAL_L2)){
+            intake_move(-127);
+            indexer_move(-127);
+            outake_move(-127);
+        }
+        /*else if(controller.get_digital(DIGITAL_R1)){
+            indexer_move(127);
+            outake_move(127);
+        }*/
+        else if(!autoShootIndexOn && !autoShootNoIndexOn){ //if no buttons are pressing then make ALL the motors of the intake stop using motor.stop()
+            intake_move(0);
+            indexer_move(0);
+            outake_move(0);
+        }
+
+            
     }
 }
 

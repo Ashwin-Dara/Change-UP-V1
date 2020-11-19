@@ -1,13 +1,19 @@
-/*#include "main.h"
-#include "robot.h"
-#ifndef OUTAKE_H_
-#define OUTAKE_H_
+#include "main.h"
+
+#ifndef INTAKE_H_
+#define INTAKE_H_
 
 void intake_move(float intake_speed);
 
-void intakeIndex_move(float intake_speed, float index_speed);
+void indexer_move(float index_speed);
+
+void outake_move(float outake_speed);
+
+void autoShoot();
+
+namespace intake{
+    void opcontrol();
+}
 
 
-
-
-#endif*/
+#endif

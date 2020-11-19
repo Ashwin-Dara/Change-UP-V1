@@ -2,6 +2,8 @@
 #include "../include/lib/drive.h"
 #include "../include/lib/PID.h"
 #include "../include/lib/movement.h"
+#include "../include/lib/intake.h"
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -12,7 +14,7 @@ void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
 	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
+		pros::lcd::set_text(2, "videogames");
 	} else {
 		pros::lcd::clear_line(2);
 	}
@@ -25,7 +27,9 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	pros::lcd::set_text(1, "videogames");
+	pros::lcd::set_text(2, "videogames");
+	pros::lcd::set_text(3, "videogames");
 
 	pros::lcd::register_btn1_cb(on_center_button);
 }
@@ -78,6 +82,7 @@ void opcontrol() {
 	//move(1000, true, 1);
 	while (true) {
 		drive::opcontrol();
+		intake::opcontrol();
 
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
