@@ -30,3 +30,7 @@ void beignPositionTracking() {
   pos[X] += deltaS * cos(theta + deltaTheta/2); 
   pos[Y] += deltaS * sin(theta + deltaTheta/2); 
 }
+
+void Odometry::logger() {
+  
+}
