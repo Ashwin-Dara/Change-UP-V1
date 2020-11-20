@@ -41,5 +41,26 @@ class Odometry{
   
 };
 
+class LinearOdometry{
+    /* 
+    * After each polar chassis movement, the LinearOdometry Measurements should udpate, reflecting the position as a point
+    *   1) make the measurements 
+    *   2) have an "update" function that modifies the target and the theta
+    *       - pass the chassis class into each of the update functions -> meaning need to seperate files
+    *   3) data visualizer
+    */
+    private: 
+        void updatePosition();
+    
+    public: 
+        extern int position[3]; 
+        extern int desiredPos[3]; 
+        LinearOdometry(); 
+        ~LinearOdometry(); 
+        void updateTargets(); 
+        void log(); 
+    
+};
+
 
 #endif 
