@@ -50,15 +50,15 @@ class LinearOdometry{
     *   3) data visualizer
     */
     private: 
-        void updatePosition();
+        void updatePosition(const &autoChassis chassis);
     
     public: 
         extern int position[3]; 
         extern int desiredPos[3]; 
         LinearOdometry(); 
         ~LinearOdometry(); 
-        void updateTargets(); 
-        void log(); 
+        void updateTargets(const &autoChassis chassis); 
+        void log(const &autoChassis chassis); 
     
 };
 
