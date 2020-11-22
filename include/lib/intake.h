@@ -9,7 +9,9 @@ void indexer_move(float index_speed);
 
 void outake_move(float outake_speed);
 
-void autoShoot();
+void autoShootIndex();
+
+void autoShootNoIndex
 
 namespace intake{
     void opcontrol();
