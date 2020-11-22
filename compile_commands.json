@@ -126,7 +126,7 @@
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/./",
+            "-iquote./include/lib/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -141,11 +141,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/main.cpp.o",
-            "src\\main.cpp"
+            "bin/lib/movement.cpp.o",
+            "src\\lib\\movement.cpp"
         ],
         "directory": "C:\\Users\\andre\\Desktop\\2496W Code\\Change-UP-V1-master",
-        "file": "src\\main.cpp"
+        "file": "src\\lib\\movement.cpp"
     },
     {
         "arguments": [
@@ -200,7 +200,7 @@
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/lib/",
+            "-iquote./include/./",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -215,10 +215,10 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/lib/movement.cpp.o",
-            "src\\lib\\movement.cpp"
+            "bin/main.cpp.o",
+            "src\\main.cpp"
         ],
         "directory": "C:\\Users\\andre\\Desktop\\2496W Code\\Change-UP-V1-master",
-        "file": "src\\lib\\movement.cpp"
+        "file": "src\\main.cpp"
     }
 ]

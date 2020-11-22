@@ -125,7 +125,7 @@ namespace intake{
             }
 
             //Switching to Manual Shooting
-            if(controller.get_digital_new_press(DIGITAL_A){
+            if(controller.get_digital_new_press(DIGITAL_A)){
                 aSI = false;
                 aSN = false;
                 stage = 1;

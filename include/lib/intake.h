@@ -11,7 +11,7 @@ void outake_move(float outake_speed);
 
 void autoShootIndex();
 
-void autoShootNoIndex
+void autoShootNoIndex();
 
 namespace intake{
     void opcontrol();
