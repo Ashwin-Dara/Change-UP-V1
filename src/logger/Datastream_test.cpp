@@ -4,7 +4,35 @@
 #include <string>
 #include <cstdarg>
 using namespace std;
-std::ofstream dataStreamWriter; 
+std::ofstream dataStreamWriter;
+//display target, current sensor, error, power
+//ball detected, line_sensor value, 
+std::ofstream chassisStream[4]; 
+std::ofstream intakeStream[4];
+
+
+class Logger{
+  private: 
+    //creating a map
+  
+    extern string fileNames[4];
+  
+  public: 
+    //enter in the subsystem
+    Logger(const std::string &subsystem){
+      
+    }
+  
+    void setFileName(const string &fileName, int i){
+      fileNames[i] = fileName;
+    }
+    
+  void beginWriting(const std::string &data, const std::string &fileName){
+      
+    }
+    
+  
+}
 
 //ISSUE NEED MULTIPLE INSTANCES OF STD::OFSTEAM ONE FOR EACH SUBSYSTEM?
 
