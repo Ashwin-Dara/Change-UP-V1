@@ -2,6 +2,8 @@
 #include "../include/odom.h"
 using namespace std; 
 
+ofstream OdometryLogger; 
+
 Odometry::~Odometry() = default; 
 
 void Odometry::init() {
@@ -31,6 +33,12 @@ void Odometry::beginPositionTracking() {
   pos[Y] += deltaS * sin(theta + deltaTheta/2); 
 }
 
-void Odometry::logger() {
-  
+void Odometry::beginLogging(const std::string &fileName, const std::string &data) {
+  OdometryLogger.open(fileName);
+    while(continueWriting){
+      OdometryLogger << data << "\n";
+      pros::delay(100); 
+    } 
+    OdometryLogger.close(); 
 }
+
