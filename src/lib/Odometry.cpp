@@ -10,7 +10,7 @@ void Odometry::init() {
   }
 }
 
-void beignPositionTracking() { 
+void Odometry::beginPositionTracking() { 
   //delta n = n_initial - n_final
   double theta = IMU.get_yaw(); //getting theta_initial - should start at 0 
   double rWheelPos = rm1.get_position(); 
