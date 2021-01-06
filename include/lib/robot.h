@@ -10,13 +10,13 @@
 #define DRIVE_RT 18 //rightTop Drive
 #define DRIVE_RB 12 //rightBottom Drive
 #define DRIVE_LT 17 //leftTop Drive
-#define DRIVE_LB 16 //leftBottom Drive
+#define DRIVE_LB 6 //leftBottom Drive
 #define INTAKE_LEFT 15
 #define INTAKE_RIGHT 8
 #define INDEXER 11
 #define OUTAKE 13
 
-#define IMU_PORT 9
+#define IMU_PORT 16
 #define INDEX_BOTTOM_LINE_PORT 2
 #define INDEX_TOP_LINE_PORT 4
 using namespace pros; 

@@ -3,6 +3,8 @@
 #include "../include/lib/PID.h"
 #include "../include/lib/movement.h"
 #include "../include/lib/intake.h"
+#include <string>
+#include <iostream>
 
 /**
  * A callback function for LLEMU's center button.
@@ -27,9 +29,6 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "videogames");
-	pros::lcd::set_text(2, "videogames");
-	pros::lcd::set_text(3, "videogames");
 
 	pros::lcd::register_btn1_cb(on_center_button);
 }
@@ -83,11 +82,26 @@ void opcontrol() {
 	while (true) {
 		drive::opcontrol();
 		intake::opcontrol();
+		if(controller.get_digital_new_press(DIGITAL_Y)){
+			index();
+			move(550, true, 8);
+			turn(-90, true, -10);
+			sis();
+			move(700, true, 8);
+			turn(-90, true, -10);
+			move(290, true, 8);
+			autoShootIndex();
+
+		}
+
 
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-
+		//pros::lcd::set_text(1, std::to_string(300 - ((rDriveB.get_position() + lDriveB.get_position()) / 2)));
+		///pros::lcd::set_text(2, std::to_string(indexer.get_actual_velocity()));
+		//printf("error: %f\r\n", (486 - ((rDriveT.get_position() + lDriveT.get_position()) / 2)));
+		//printf("error: %f\r\n", (90.0 - imu.get_yaw()));
 		pros::delay(20);
 	}
 }

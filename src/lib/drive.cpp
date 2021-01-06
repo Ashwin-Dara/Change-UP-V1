@@ -15,6 +15,7 @@ namespace drive{
     }
     */
    void opcontrol(){
+       
         int fPwr, tPwr; //forwardpower and turnpower
         int rYaxis, lXaxis; //controller axis 
         rYaxis = controller.get_analog(ANALOG_RIGHT_Y);
@@ -22,5 +23,6 @@ namespace drive{
         fPwr = (abs(rYaxis) > 2) ? rYaxis : 0;
         tPwr = (abs(lXaxis) > 2) ? lXaxis : 0;  
         chas_move(fPwr + tPwr, fPwr - tPwr);
+
     }
 }

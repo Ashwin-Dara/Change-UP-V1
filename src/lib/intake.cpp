@@ -21,8 +21,48 @@ void outake_move(float outake_speed){
     outake.move(outake_speed);
 }
 
+void index(){
+    intake_move(127);
+    indexer_move(127);
+    outake_move(-127);
+}
 
-float line_average;
+void sis(){
+    intake_move(0);
+    indexer_move(0);
+    outake_move(0);
+}
+
+void autonASI(){
+    while (index_bottom.get_value() < BALL_CONSTANT) {//Shoots First Ball
+        indexer.move(INDEXER_SPEED);
+        outake.move(OUTAKE_SPEED); 
+    }
+    delay(100);
+    indexer.move(0);
+    delay(520);
+    outake.move(0);
+
+    while(index_bottom.get_value() > BALL_CONSTANT){ //Indexes Next Balll
+        indexer.move(INDEXER_SPEED);
+        outake.move(-OUTAKE_SPEED); 
+    }
+    indexer.move(0);
+    outake.move(0);
+}
+
+void autonASNI(){
+    while (index_bottom.get_value() < BALL_CONSTANT) {//Shoots First Ball
+        indexer.move(INDEXER_SPEED);
+        outake.move(OUTAKE_SPEED); 
+    }
+    delay(100);
+    indexer.move(0);
+    delay(520);
+    outake.move(0);
+}
+
+
 bool aSN = false; //autoShootNoIndex
 bool aSI = false; //autoShootIndex
 bool manual = false;
@@ -45,44 +85,53 @@ void autoShootIndex(){
     autoShootOn = false;*/
 
     //line_average = ((index_bottom.get_value() + index_top.get_value()) / 2);
-    line_average = index_bottom.get_value();
     if (stage == 1){//Shooting stage
-        if (line_average < BALL_CONSTANT) {//Shoots First Ball
+        if (index_bottom.get_value() < BALL_CONSTANT) {//Shoots First Ball
             indexer.move(INDEXER_SPEED);
             outake.move(OUTAKE_SPEED); 
         }
         else{
+            delay(100);
             indexer.move(0);
-            delay(400);
+            delay(520);
             outake.move(0);
             stage = 2;
         }
     }
 
     else if (stage == 2){//Indexing Stage
-        if(line_average > BALL_CONSTANT){ //Indexes Next Balll
+        if(index_bottom.get_value() > BALL_CONSTANT){ //Indexes Next Balll
             indexer.move(INDEXER_SPEED);
             outake.move(-OUTAKE_SPEED); 
         }
         else{
+            stage = 3;
+        }
+    }
+    else if(stage == 3){
             indexer.move(0);
             outake.move(0);
             stage = 1;
             aSI = false;
-        }
     }
 }
 
 void autoShootNoIndex(){
-    line_average = index_bottom.get_value();
-    if (line_average < BALL_CONSTANT){//Shoots First Ball
-        indexer.move(INDEXER_SPEED);
-        outake.move(OUTAKE_SPEED); 
+    if(stage == 1){
+        if (index_bottom.get_value() < BALL_CONSTANT){//Shoots First Ball
+            indexer.move(INDEXER_SPEED);
+            outake.move(OUTAKE_SPEED); 
+        }
+        else{
+            stage = 2;
+        }
     }
-    else{
+    else if(stage == 2){
+        delay(100);
         indexer.move(0);
-        delay(400);
+        delay(520);
         outake.move(0);
+        stage = 1;
         aSN = false;
     }
 }
@@ -147,6 +196,12 @@ namespace intake{
                 indexer_move(127);
                 outake_move(127);
             }
+            else if(controller.get_digital(DIGITAL_LEFT)){
+                indexer_move(127);
+            }
+            else if(controller.get_digital(DIGITAL_UP)){
+                outake_move(127);
+            }
             else{ //if no buttons are pressing then make ALL the motors of the intake stop using motor.stop()
                 intake_move(0);
                 indexer_move(0);
@@ -159,7 +214,7 @@ namespace intake{
                 aSN = false;
                 stage = 1;
                 manual = false;
-            } 
+            }
         }
 
             

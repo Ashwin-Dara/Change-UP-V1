@@ -14,7 +14,7 @@ public:
     int derivative = 0;
     float power = 0;
     float prev_power = 0;
-    bool slew_on = true;
+    bool t_slew_on = true;
 
     PID(float kp, float ki, float kd){
         m_kp = kp;
@@ -34,9 +34,9 @@ public:
 
         power = m_kp*error + m_ki*integral + m_kd*derivative;
         
-        if(slew_on && m_slew_on){
+        if(t_slew_on && m_slew_on){
             if (std::abs(power) <= std::abs(prev_power) + std::abs(slew)){
-                slew_on = false;
+                t_slew_on = false;
             }
             else{
                 power = prev_power + slew;
